@@ -1,8 +1,9 @@
 name: Update Keys
 
 on:
-  schedule:
-    - cron: '*/1 * * * *'  # Exécute toutes les 5 minutes
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: ["main"]
 
 jobs:
   run_script:
