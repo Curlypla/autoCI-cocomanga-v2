@@ -2,7 +2,7 @@ name: Update Keys
 
 on:
   schedule:
-    - cron: '*/30 * * * *'  # Exécute toutes les 5 minutes
+    - cron: '*/1 * * * *'  # Exécute toutes les 5 minutes
 
 jobs:
   run_script:
