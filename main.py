@@ -31,10 +31,11 @@ with open("custom-deob.js", "r", encoding="utf-8") as f:
 keys_list = re.findall(r'\"(.*?)\"', custom)
 bad_chars = ["?", "<", "_", ":", ".", "：", "getCroppedCanvas"]
 keys_list = [x for x in keys_list if len(x) == 16 and not any(c in x for c in bad_chars)]
+print(keys_list)
 
-decryption_dico["C_DATA"] = [keys_list[0], keys_list[1]]
-decryption_dico["enc_code2"] = [keys_list[3], keys_list[4]]
-decryption_dico["enc_code1"] = [keys_list[7], keys_list[8]]
+decryption_dico["C_DATA"] = [keys_list[-1], keys_list[5]]
+decryption_dico["enc_code2"] = [keys_list[1], keys_list[0]]
+decryption_dico["enc_code1"] = [keys_list[2], keys_list[3]]
 
 pattern = r'if \(G == "(\d+)"\) {\s*I = "([^"]+)";'
 matches = re.findall(pattern, mangaread)
