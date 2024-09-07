@@ -16,7 +16,7 @@ with open("mangaread.js", "w", encoding="utf-8") as f:
 with open("custom.js", "w", encoding="utf-8") as f:
     f.write(customjs)
 
-# run obfuscator-io-deobfuscator <input> -o [output]
+# # run obfuscator-io-deobfuscator <input> -o [output]
 os.system("obfuscator-io-deobfuscator mangaread.js -o mangaread-deob.js")
 os.system("obfuscator-io-deobfuscator custom.js -o custom-deob.js")
 
@@ -38,13 +38,21 @@ decryption_dico["C_DATA"] = [keys_list[0], keys_list[1]]
 decryption_dico["enc_code2"] = [keys_list[2], keys_list[3]]
 decryption_dico["enc_code1"] = [keys_list[4], keys_list[5]]
 
-# decryption_dico["C_DATA"] = [keys_list[-1], keys_list[5]]
-# decryption_dico["enc_code2"] = [keys_list[1], keys_list[0]]
-# decryption_dico["enc_code1"] = [keys_list[2], keys_list[3]]
+def get_content_beetween_two_strings(content, start, end):
+    return content.split(start)[1].split(end)[0]
 
-pattern = r'if \(G == "(\d+)"\) {\s*I = "([^"]+)";'
-matches = re.findall(pattern, mangaread)
-result = dict(matches)
+str1 = "'' && "
+str2 = "};"
+
+# Now more dynamic, do not depends on variable name
+content = get_content_beetween_two_strings(mangaread, str1, str2)
+pattern = r'0x[0-9a-fA-F]+(?=\))'
+matches1 = re.findall(pattern, content)
+matches1.pop(0)
+pattern = r'\"([^"]+)\"'
+matches2 = re.findall(pattern, content)
+
+result = {int(value, 16): key for key, value in zip(matches2, matches1)}
 
 decryption_dico["IG_dict"] = result
 
