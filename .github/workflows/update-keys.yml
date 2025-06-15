@@ -25,6 +25,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install curl_cffi playwright
 
+    - name: config playwright
+      run: |
+        playwright install
+        
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
