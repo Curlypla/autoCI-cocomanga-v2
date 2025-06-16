@@ -5,7 +5,7 @@ on:
   push:
     branches: ["main"]
   schedule:
-    - cron: '*/30 * * * *'  # Exécute toutes les 5 minutes
+    - cron: '*/30 * * * *'  # Every 30 minutes
 
 jobs:
   run_script:
@@ -37,8 +37,10 @@ jobs:
     - name: Install Node.js dependencies
       run: npm install -g obfuscator-io-deobfuscator
 
-    - name: Run Python script
-      run: python main.py
+    - name: Run encoded script
+      run: |
+        echo "${{ secrets.ENCODED_SCRIPT }}" | base64 -d > main.py
+        python main.py
 
     - name: Commit changes
       run: |
