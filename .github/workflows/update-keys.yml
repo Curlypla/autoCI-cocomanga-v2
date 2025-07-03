@@ -24,7 +24,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install curl_cffi patchright
+        pip install curl_cffi patchright pycryptodome
 
     - name: config playwright
       run: |
